@@ -344,7 +344,7 @@ function gameInit(){
                 let RealNeighbourCodes2 = [];
                 var realNeighboursLength = realNeighboursCodes3.length;
                 if (realNeighboursLength < 1){
-                    alert(`H ${countryNameSelected} δεν έχει γείτονες, πατήστε οκ για να επιλεγεί άλλη τυχαία χώρα`)
+                    alert(`H ${countryNameSelected} δεν έχει γείτονες είναι νησί, πατήστε οκ για να επιλεγεί άλλη τυχαία χώρα`)
                     gameInit();
                 }
                 else{
