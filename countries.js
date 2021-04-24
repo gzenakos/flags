@@ -326,9 +326,9 @@ function gameInit(){
     const url = "https://restcountries.eu/rest/v2/alpha/";
     var countrySelected = shuffleArray(countryObjects)[0];
     var countryObjectsFiltered = arrayRemove(countryObjects, countrySelected);
-    const countryCodeSelected = countrySelected['code'];
-    const countryFlagSelected = country2emoji2(countryCodeSelected);
-    const countryNameSelected = countrySelected['name'];
+    let countryCodeSelected = countrySelected['code'];
+    let countryFlagSelected = country2emoji2(countryCodeSelected);
+    let countryNameSelected = countrySelected['name'];
     fetch(url+countryCodeSelected)
         .then((reply)=>{
             if (reply.status === 200){
@@ -340,17 +340,17 @@ function gameInit(){
             if (reply.lenth < 1) {
                 throw new Error('country not found')
             }else {
-                const realNeighboursCodes3 = reply.borders;
-                const RealNeighbourCodes2 = [];
+                let realNeighboursCodes3 = reply.borders;
+                let RealNeighbourCodes2 = [];
                 var realNeighboursLength = realNeighboursCodes3.length;
                 if (realNeighboursLength < 1){
                     alert(`H ${countryNameSelected} δεν έχει γείτονες, πατήστε οκ για να επιλεγεί άλλη τυχαία χώρα`)
                     gameInit();
                 }
                 else{
-                        var neighboursFakeAndREal = [];
+                    let neighboursFakeAndREal = [];
                     for (let i = 0; i < (realNeighboursLength); i++) {                                  //REAL NEIGHBOURS
-                        const neighbourCode3 = realNeighboursCodes3[i];
+                        let neighbourCode3 = realNeighboursCodes3[i];
                         var neighbourReal = countryObjects.filter(obj => {
                             return obj['code3'] === neighbourCode3
                           }) 
@@ -369,8 +369,8 @@ function gameInit(){
                         
                     for (let i = 0; i < (realNeighboursLength*2); i++) {                               //CREATE REAL & FAKE NEIGHBOURS DOM ELEMENTS
                         var neighbour =  shuffledNeighboursFakeAndReal[i];
-                        const neighbourFlag = country2emoji2(neighbour['code']);
-                        const neighbourName = neighbour['name'];
+                        let neighbourFlag = country2emoji2(neighbour['code']);
+                        let neighbourName = neighbour['name'];
                         var neighbourNode = document.createElement("DIV");
                         neighbourNode.classList.add('neighbour');
                         neighbourNode.innerHTML = `<div id="${neighbour['code']}"  class="country-flag">${neighbourFlag}</div><div class="country-name">${neighbourName}</div>`;
