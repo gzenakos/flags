@@ -325,7 +325,6 @@ function arrayRemove(arr, value) {
 function gameInit(){
     const url = "https://restcountries.eu/rest/v2/alpha/";
     var countrySelected = shuffleArray(countryObjects)[0];
-    countrySelected = { "code": "AD", "code3": "AND", "name": "Andorra", "number": "020" };
     var countryObjectsFiltered = arrayRemove(countryObjects, countrySelected);
     const countryCodeSelected = countrySelected['code'];
     const countryFlagSelected = country2emoji2(countryCodeSelected);
