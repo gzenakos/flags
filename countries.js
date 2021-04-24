@@ -277,7 +277,16 @@ const countryObjects = [
     { "code": "AX", "code3": "ALA", "name": "Åland Islands", "number": "248" }
 ];
 
+var roundNumber = 1;
+var scoreNumber = 0;
+var counterCorrect = 0;
+var counterWrong = 0;
+var score = 0;
+var neighboursToCheck;
+
 function clearBoard(){
+    counterCorrect = 0;
+    counterWrong = 0;
     oldneighbours = document.querySelectorAll('.neighbour');
     oldneighbours.forEach(oldneighbour => {
         oldneighbour.remove();
@@ -293,12 +302,6 @@ function clearBoard(){
     document.querySelector('#progress').setAttribute("max", '');
 }
 
-var roundNumber = 1;
-var scoreNumber = 0;
-var counterCorrect = 0;
-var counterWrong = 0;
-var score = 0;
-var neighboursToCheck;
 function resetGame(){
     roundNumber = 1;
     score = 0;
@@ -340,7 +343,7 @@ function gameInit(){
             }else {
                 const realNeighboursCodes3 = reply.borders;
                 const RealNeighbourCodes2 = [];
-                const realNeighboursLength = realNeighboursCodes3.length;
+                var realNeighboursLength = realNeighboursCodes3.length;
                 if (realNeighboursLength < 1){
                     alert(`H ${countryNameSelected} δεν έχει γείτονες, πατήστε οκ για να επιλεγεί άλλη τυχαία χώρα`)
                     gameInit();
@@ -374,8 +377,6 @@ function gameInit(){
                         neighbourNode.innerHTML = `<div id="${neighbour['code']}"  class="country-flag">${neighbourFlag}</div><div class="country-name">${neighbourName}</div>`;
                         document.querySelector("#neighbours-panel").appendChild(neighbourNode);
                     }
-                    counterCorrect = 0;
-                    counterWrong = 0;
                     let checkCountryClicked = (e)=>{                                                 // EVENT LISTENER ON COUNTRY CLICK
                         neighboursToCheck = document.querySelectorAll('.neighbour');
 
