@@ -28,12 +28,10 @@ body {
   margin: 0.5rem;
   display: flex;
   flex-wrap: wrap;
-  height: 100%;
   background-color: #708090;
   border-radius: 5px;
   display: flex;
   align-items: center;
-  width: 100%;
 }
 #sidebar {
   grid-row: 1 / span 4;
