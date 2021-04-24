@@ -308,6 +308,8 @@ function resetGame(){
     document.querySelector("#round").innerHTML = roundNumber;
     document.querySelector('#score').innerHTML = scoreNumber;
     clearBoard();
+    console.log('counterCorrect '+counterCorrect)
+    console.log('counterWrong '+counterWrong)
 }
 
 function nextRoundGame(){
@@ -376,44 +378,37 @@ function gameInit(){
                         neighbourNode.innerHTML = `<div id="${neighbour['code']}"  class="country-flag">${neighbourFlag}</div><div class="country-name">${neighbourName}</div>`;
                         document.querySelector("#neighbours-panel").appendChild(neighbourNode);
                     }
-                    let checkCountryClicked = (e)=>{                                                 // EVENT LISTENER ON COUNTRY CLICK
-                        neighboursToCheck = document.querySelectorAll('.neighbour');
 
-                        neighboursToCheck.forEach(neighbourToCheck => {
-                            if (neighbourToCheck.contains(e.target)){
-                                neighbourToCheck.classList.add('was-clicked')
-                                neighbourToCheckCode2 = neighbourToCheck.querySelector('.country-flag').id;
-
-                                if (RealNeighbourCodes2.includes(neighbourToCheckCode2)){
-                                    counterCorrect++;
-                                    score = score+5;
-                                    //console.log('score '+score);
-                                    document.querySelector('#score').innerHTML = score;
-                                    neighbourToCheck.classList.add('neighbour-is-valid')
-                                    document.querySelector('#progress').setAttribute("value", counterCorrect);
-                                    if (counterCorrect == realNeighboursLength){
-                                        document.querySelector('#success').classList.remove('hidden');
-                                        document.querySelector("#btn-next-round").removeAttribute('disabled');
-                                        window.removeEventListener('click', checkCountryClicked );
-                                    }
+                    neighboursToCheck = document.querySelectorAll('.neighbour');
+                    for (let i = 0; i < neighboursToCheck.length; i++) {
+                        let neighbourToCheck = neighboursToCheck[i];
+                        neighbourToCheck.addEventListener('click', ()=>{                                    //ADD EVEN LISTENERS TO EACH NEIGHBOUR
+                            neighbourToCheck.classList.add('was-clicked');
+                            neighbourToCheckCode2 = neighbourToCheck.querySelector('.country-flag').id;
+                            if (RealNeighbourCodes2.includes(neighbourToCheckCode2)){                       //IF CLICKED NEIGHBOUR WAS CORRECT
+                                counterCorrect ++;
+                                score = score+5;
+                                //console.log('score '+score);
+                                document.querySelector('#score').innerHTML = score;
+                                neighbourToCheck.classList.add('neighbour-is-valid');
+                                document.querySelector('#progress').setAttribute("value", counterCorrect);
+                                if (counterCorrect == realNeighboursLength){
+                                    document.querySelector('#success').classList.remove('hidden');
+                                    document.querySelector("#btn-next-round").removeAttribute('disabled');
                                 }
-                                else{
-                                    score = score-3;
-                                    document.querySelector('#score').innerHTML = score;
-                                    counterWrong ++;
-                                    neighbourToCheck.classList.add('neighbour-is-invalid')
-                                }
+                            }
+                            else{                                                                           //IF CLICKED NEIGHBOUR WAS WRONG
+                                score = score-3;
+                                document.querySelector('#score').innerHTML = score;
+                                counterWrong ++;
+                                neighbourToCheck.classList.add('neighbour-is-invalid');
                                 if(counterWrong == realNeighboursLength){
                                     document.querySelector('#fail').classList.remove('hidden');
                                     document.querySelector("#btn-next-round").removeAttribute('disabled');
-                                    window.removeEventListener('click', checkCountryClicked );
-                                    
                                 }
-                               
-                            } 
-                        });
+                            }
+                        } );
                     }
-                    window.addEventListener('click', checkCountryClicked );
                     document.querySelector('#progress').setAttribute("max", realNeighboursLength);
                     document.querySelector('#my-country-flag').innerHTML = countryFlagSelected;
                     document.querySelector('#my-country-name').innerHTML = countryNameSelected;     
