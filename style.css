@@ -195,6 +195,7 @@ button[disabled] {
 #progress[value],
 #progress[value]::-webkit-progress-value {
   background-color: #0064b4;
+  border-radius: 5px;
 }
 /* ειδικά για τους φυλλομετρητές που προέρχονται από τον chrome καθώς 
 υποστηρίζουν λιγότερο καλά το στοιχείο progress από ότι ο firefox,
