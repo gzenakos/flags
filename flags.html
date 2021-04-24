@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Βρες τους γείτονες</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="countries.js">
+    </script>
+    <script>
+        // Ένας βοηθητικός πίνακας που θα περιέχει τις χώρες από το countries.js σε λίγο πιο βολική μορφή
+        const allCountries = new Array();
+        // πχ. allCountries['GRE'] = { code2: "GR", name: "Greece"}, ή κάτι παρόμοιο 
+
+        // Εδώ μπορείτε να βάλετε τον κώδικα για όλο το παιχνίδι
+        // Μπορείτε γράψετε κλάσεις που να έχουν κάποια συμπεριφορά, 
+        // π.χ. Game, PlayingCountry, Neighbour, ...
+        // ή να και ακολουθήσετε άλλη τακτική, που να σας είναι πιο προσιτή
+
+        document.addEventListener("DOMContentLoaded", () => {
+            //start a new Game
+            //...
+            countryCodes = document.querySelectorAll('.country-flag');
+                countryCodes.forEach(countryCode => {
+                    countryFlag = country2emoji2(countryCode.innerHTML);
+                    countryCode.innerHTML = countryFlag;
+                });
+
+            //event listener to new game button
+            document.querySelector("#btn-new-game").addEventListener("click", () => {
+                
+                if (confirm("Σίγουρα; Θα χάσετε όλο σας το σκορ!")) {
+                    resetGame();
+                    gameInit(); 
+                    
+                } else {
+                    return;
+                }
+            })
+
+            //event listener to next round button
+            document.querySelector("#btn-next-round").addEventListener("click", () => {
+                    nextRoundGame();
+                    gameInit();
+
+            })
+
+        });
+    </script>
+</head>
+
+<body>
+    <div class="game-panel">
+        <!-- 
+                Γράψτε εδώ τον κώδικα HTML που χρειάζεστε για το παιχνίδι.
+                Κάποια από τα στοιχεία (elements) της σελίδας προστίθενται και
+                αφαιρούνται δυναμικά, μέσα από τη JavaScript, π.χ. οι σημαίες 
+                των γειτονικών χωρών κ.ά.
+            -->
+        <div id="sidebar">
+            <div class="find-label">Βρες τους γείτονες
+            </div>
+            <div class="game-status">
+                <div class="round-wrapper">
+                    <div class="round-label">Γύρος:</div>
+                    <div id="round">-</div>
+                </div>
+                <div class="score-wrapper">
+                    <div class="score-label">Σκορ:</div>
+                    <div id="score">-</div>
+                </div>
+            </div>
+            <div class="game-buttons">
+                <button id="btn-next-round" type="button" disabled >Επόμενη χώρα
+                </button>
+                <button id="btn-new-game" type="button">Νέο παιχνίδι
+                </button>
+
+            </div>
+        </div>
+
+        <div id="my-country-wrapper">
+            <div id="my-country">
+            <div id="my-country-flag" class="country-flag"></div><div id="my-country-name" class="country-name"></div>
+            </div>
+            <progress id="progress" value="" max=""></progress>
+        </div>
+
+        <div id="neighbours-panel">
+            <div id="success" class="hidden">Τους βρήκατε όλους!</div>
+            <div id="fail" class="hidden">Κρίμα χάσετε!</div>
+        </div>
+
+    </div>
+</body>
+<script>
+//Το παρακάτω αφορά μόνο τους χρήστες macOS.
+if (navigator.appVersion.indexOf("Macintosh")>0){
+  document.body.style.fontFamily = '"Open Sans"';
+}
+</script>
+</html>
