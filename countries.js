@@ -283,6 +283,7 @@ var counterCorrect = 0;
 var counterWrong = 0;
 var score = 0;
 var neighboursToCheck;
+var countryObjectsEdited;
 
 function clearBoard(){
     counterCorrect = 0;
@@ -307,6 +308,7 @@ function resetGame(){
     score = 0;
     document.querySelector("#round").innerHTML = roundNumber;
     document.querySelector('#score').innerHTML = scoreNumber;
+    countryObjectsEdited = countryObjects;                                  //reset countries
     clearBoard();
 }
 
@@ -324,8 +326,9 @@ function arrayRemove(arr, value) {
 
 function gameInit(){
     const url = "https://restcountries.eu/rest/v2/alpha/";
-    var countrySelected = shuffleArray(countryObjects)[0];
-    var countryObjectsFiltered = arrayRemove(countryObjects, countrySelected);
+    var countrySelected = shuffleArray(countryObjectsEdited)[0];
+    var countryObjectsFiltered = arrayRemove(countryObjectsEdited, countrySelected);  //remove selected country for not fetching it as fake
+    countryObjectsEdited = countryObjectsFiltered;                                    //edit countries object for not fetching same country at next rounds
     let countryCodeSelected = countrySelected['code'];
     let countryFlagSelected = country2emoji2(countryCodeSelected);
     let countryNameSelected = countrySelected['name'];
